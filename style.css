@@ -1,7 +1,13 @@
-#todo-head, #main-table {
-    margin-top: 20px;
+#todo-head, #main-table, #alert {
+    margin-top: 50px;
 }
 
 #title {
     color: white;
+}
+
+#warn {
+    display: none;
+    opacity: 0;
+    pointer-events: none;
 }
