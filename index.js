@@ -57,13 +57,15 @@ const displayItems = (position, title) => {
   btn1.innerHTML = "Update";
   btn1.className = "btn btn-success";
   btn1.type = "button";
+  btn1.setAttribute("data-bs-toggle", "modal");
+  btn1.setAttribute("data-bs-target", "#exampleModal");
   btn2 = document.createElement("button");
   btn2.innerHTML = "Delete";
   btn2.className = "btn btn-danger";
   btn2.type = "button";
   btn2.addEventListener("click", async () => {
     const one = await JSON.parse(localStorage.getItem("todoRecords"));
-    const two = one.filter(val => val !== title)
+    const two = one.filter((val) => val !== title);
     await localStorage.setItem("todoRecords", JSON.stringify(two));
     await location.reload();
   });
