@@ -7,7 +7,7 @@ const todoButton = document.getElementById("todo-button");
 const getAllTodos = async () => {
   const one = await JSON.parse(localStorage.getItem("todoRecords"));
   one.forEach((element) => {
-    displayItems(one.indexOf(element) + 1, element);
+    displayItems(one.indexOf(element), element);
   });
 };
 
@@ -50,7 +50,7 @@ const displayItems = (position, title) => {
   const tableBody = document.getElementById("tbody");
   const tableRow = document.createElement("tr");
   const th1 = document.createElement("th");
-  th1.innerHTML = position;
+  th1.innerHTML = position + 1;
   const th2 = document.createElement("td");
   th2.innerHTML = title;
   const btn1 = document.createElement("button");
@@ -59,6 +59,10 @@ const displayItems = (position, title) => {
   btn1.type = "button";
   btn1.setAttribute("data-bs-toggle", "modal");
   btn1.setAttribute("data-bs-target", "#exampleModal");
+  btn1.addEventListener("click", () => {
+    document.getElementById("updated-todo").value = title
+    document.getElementById("id-ref").innerHTML = position
+  })
   btn2 = document.createElement("button");
   btn2.innerHTML = "Delete";
   btn2.className = "btn btn-danger";
@@ -79,3 +83,18 @@ const displayItems = (position, title) => {
   tableRow.appendChild(th4);
   tableBody.appendChild(tableRow);
 };
+
+
+const updateTodo = async () => {
+  let todoPosition= document.getElementById("id-ref").innerHTML
+  let todoValue = document.getElementById("updated-todo").value
+  if (todoValue === "") {
+      updateAlert("alert alert-warning", "The todo item cannot be empty!!");
+  }
+  else {
+    const one = await JSON.parse(localStorage.getItem("todoRecords"));
+    one[todoPosition] = todoValue
+    await localStorage.setItem("todoRecords", JSON.stringify(one));
+    await location.reload();
+  }
+}
