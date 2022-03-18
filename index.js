@@ -36,11 +36,13 @@ todoButton.addEventListener("click", async () => {
       arr.push(todoItem);
       await localStorage.setItem("todoRecords", JSON.stringify(arr));
       updateAlert("alert alert-success", "Your task was successfully added!");
+      document.getElementById("todo-input").value = "";
       await location.reload();
     } else {
       let newArr = [...one, todoItem];
       await localStorage.setItem("todoRecords", JSON.stringify(newArr));
       updateAlert("alert alert-success", "Your task was successfully added!");
+      document.getElementById("todo-input").value = "";
       await location.reload();
     }
   }
@@ -60,9 +62,9 @@ const displayItems = (position, title) => {
   btn1.setAttribute("data-bs-toggle", "modal");
   btn1.setAttribute("data-bs-target", "#exampleModal");
   btn1.addEventListener("click", () => {
-    document.getElementById("updated-todo").value = title
-    document.getElementById("id-ref").innerHTML = position
-  })
+    document.getElementById("updated-todo").value = title;
+    document.getElementById("id-ref").innerHTML = position;
+  });
   btn2 = document.createElement("button");
   btn2.innerHTML = "Delete";
   btn2.className = "btn btn-danger";
@@ -84,17 +86,15 @@ const displayItems = (position, title) => {
   tableBody.appendChild(tableRow);
 };
 
-
 const updateTodo = async () => {
-  let todoPosition= document.getElementById("id-ref").innerHTML
-  let todoValue = document.getElementById("updated-todo").value
+  let todoPosition = document.getElementById("id-ref").innerHTML;
+  let todoValue = document.getElementById("updated-todo").value;
   if (todoValue === "") {
-      updateAlert("alert alert-warning", "The todo item cannot be empty!!");
-  }
-  else {
+    updateAlert("alert alert-warning", "The todo item cannot be empty!!");
+  } else {
     const one = await JSON.parse(localStorage.getItem("todoRecords"));
-    one[todoPosition] = todoValue
+    one[todoPosition] = todoValue;
     await localStorage.setItem("todoRecords", JSON.stringify(one));
     await location.reload();
   }
-}
+};
